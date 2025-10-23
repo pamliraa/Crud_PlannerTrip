@@ -21,7 +21,7 @@ class DestinoController extends Controller
      */
     public function create()
     {
-        return view("destinos.create");
+      return view('destinos.create');
     }
 
     /**
@@ -29,6 +29,10 @@ class DestinoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+        'name' => 'required|string|max:255',
+        'descricao' => 'required|string|max:255',]);
+
         Destino::create($request->all());
 
         return redirect()->route("destinos.index");
@@ -37,18 +41,13 @@ class DestinoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Destino $destino)
-    {
-        //
-    }
-
+  
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Destino $destino)
     {
-        $destino = Destino::findOrFail($id);
-        return view("destinos.edit", compact("destino"));
+        return view('destinos.edit', compact('destino'));
     }
 
     /**
@@ -56,22 +55,13 @@ class DestinoController extends Controller
      */
     public function update(Request $request, Destino $destino)
     {
-        $destino = Destino::findOrFail($id);
-
         $destino->update($request->all());
-
-        return redirect()->route("destinos.index");
+        return redirect()->route('destinos.index')->with('success', 'Destino atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Destino $destino)
     {
-        $destino = Destino::findOrFail($id);
-
         $destino->delete();
-
-        return redirect()->back();
+        return redirect()->route('destinos.index')->with('success', 'Destino excluído com sucesso!');
     }
 }
