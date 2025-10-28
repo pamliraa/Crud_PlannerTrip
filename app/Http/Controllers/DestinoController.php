@@ -35,7 +35,7 @@ class DestinoController extends Controller
 
         Destino::create($request->all());
 
-        return redirect()->route("destinos.index");
+        return redirect()->route('destinos.index')->with('success', 'Destino criado com sucesso!');
     }
 
     /**
