@@ -11,3 +11,5 @@ Route::get('/', function () {
 Route::resource('destinos', DestinoController::class);
 
 Route::resource('atividades', AtividadeController::class);
+
+Route::resource('orcamentos', AtividadeController::class);
