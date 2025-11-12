@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("valorEstimado");
             $table->integer("valorGasto");
             $table->string("descricao");
+            $table->foreign('id_destino')->references('id')->on('destinos')->onDelete('cascade');
         });
     }
 
