@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orcamento;
+use App\Models\Destino;
 use Illuminate\Http\Request;
 
 class OrcamentoController extends Controller
@@ -16,7 +17,8 @@ class OrcamentoController extends Controller
 
     public function create()
     {
-      return view('orcamentos.create');
+        $destinos = Destino::all();
+        return view('orcamentos.create', compact('destinos'));
     }
 
     public function store(Request $request)
@@ -26,6 +28,7 @@ class OrcamentoController extends Controller
         'valorEstimado' => 'required|numeric',
         'valorGasto' => 'required|numeric',
         'descricao' => 'required|string|max:255',
+        'id_destino' => 'nullable|exists:destinos,id',
     ]);
 
         Orcamento::create($request->all());
