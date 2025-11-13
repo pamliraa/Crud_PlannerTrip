@@ -30,9 +30,9 @@
         @foreach($orcamentos as $orcamento)
         <li>
             <div>
-                <strong>{{ $orcamento->titulo }}</strong><br>
-                <small>Valor Estimado: {{ $orcamento->valorEstimado}}</small>
-                <small>Valor Gasto: {{ $orcamento->valorGasto }}</small>
+                <strong>Destino: {{ $orcamento->destino->name ?? 'Destino não encontrado' }}</strong><br>
+                <small>Valor Estimado: R$ {{ $orcamento->valorEstimado}}</small>
+                <small>Valor Gasto: R$ {{ $orcamento->valorGasto }}</small>
                 <small>Descrição: {{ $orcamento->descricao }}</small>
             </div>
 
