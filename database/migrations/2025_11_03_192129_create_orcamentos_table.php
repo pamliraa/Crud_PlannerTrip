@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('orcamentos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("titulo");
-            $table->integer("valorEstimado");
-            $table->integer("valorGasto");
+            $table->decimal('valorEstimado', 10, 2);
+            $table->decimal('valorGasto', 10, 2);
             $table->string("descricao");
             $table->unsignedBigInteger('id_destino')->nullable();
             $table->foreign('id_destino')->references('id')->on('destinos')->onDelete('cascade');
