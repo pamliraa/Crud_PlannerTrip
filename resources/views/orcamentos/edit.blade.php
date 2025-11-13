@@ -11,14 +11,23 @@
      <form action="{{ route('orcamentos.update', $orcamento->id) }}" method="post">
         @csrf
         @method("put")
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" id="titulo" value="{{ $orcamento->titulo }}" required>
+
+         <label for="id_destino">Destino</label>
+         <select name="id_destino" id="id_destino" required>
+            <option value="">Selecione um destino</option>
+            @foreach($destinos as $destino)
+                <option value="{{ $destino->id }}" 
+                    {{ $orcamento->id_destino == $destino->id ? 'selected' : '' }}>
+                    {{ $destino->name }}
+                </option>
+            @endforeach
+        </select>
 
         <label for="valorEstimado">Valor Estimado:</label>
-        <input type="number" name="valorEstimado" id="valorEstimado" value="{{ $orcamento->valorEstimado }}" required>
+        <input type="number" step="0.01" name="valorEstimado" id="valorEstimado" value="{{ $orcamento->valorEstimado }}" required>
         
         <label for="valorGasto">Valor Gasto:</label>
-        <input type="number" name="valorGasto" id="valorGasto" value="{{ $orcamento->valorGasto }}" required>
+        <input type="number" step="0.01" name="valorGasto" id="valorGasto" value="{{ $orcamento->valorGasto }}" required>
 
         <label for="descricao">Descrição:</label>
         <input type="text" name="descricao" id="descricao"  value="{{ $orcamento->descricao }}" required>
