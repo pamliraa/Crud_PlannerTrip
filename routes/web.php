@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DestinoController;
+use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\OrcamentoController;
 
 Route::get('/', function () {
