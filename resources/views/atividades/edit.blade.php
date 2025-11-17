@@ -24,8 +24,24 @@
         <input type="text" name="local" id="local" value="{{ $atividade->local }}" required>
 
         <label for="status">Status:</label>
-        <input type="text" name="status" id="status" value="{{ $atividade->status }}" required>
-
+        <select name="status" id="status" required>
+            <option value="planejado" {{ $atividade->status === 'planejado' ? 'selected' : '' }}>
+                Planejado
+            </option>
+            <option value="confirmado" {{ $atividade->status === 'confirmado' ? 'selected' : '' }}>
+                Confirmado
+            </option>
+            <option value="em_andamento" {{ $atividade->status === 'em_andamento' ? 'selected' : '' }}>
+                Em andamento
+            </option>
+            <option value="concluido" {{ $atividade->status === 'concluido' ? 'selected' : '' }}>
+                Concluído
+            </option>
+            <option value="cancelado" {{ $atividade->status === 'cancelado' ? 'selected' : '' }}>
+                Cancelado
+            </option>
+        </select>
+        
         <input type="submit" value="Enviar" >
     </form>
 
