@@ -12,4 +12,9 @@ class Destino extends Model
     {
         return $this->hasMany(Orcamento::class, 'id_destino');
     }
+
+    public function diarios()
+    {
+        return $this->hasMany(Diario::class);
+    }
 }
