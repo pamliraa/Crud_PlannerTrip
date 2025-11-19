@@ -8,6 +8,10 @@
 <body>
     <h1>Lista de Diários</h1>
 
+    @if(session('success'))
+    <p>{{ session('success') }}</p>
+    @endif
+
 <a href="{{ route('diarios.create') }}">Criar novo diário</a>
 
 <table border="1" cellpadding="8" cellspacing="0">
