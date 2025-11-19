@@ -5,6 +5,7 @@ use App\Http\Controllers\DestinoController;
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\DiarioController;
+use App\Http\Controllers\ChecklistController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,3 +18,5 @@ Route::resource('atividades', AtividadeController::class);
 Route::resource('orcamentos', OrcamentoController::class);
 
 Route::resource('diarios', DiarioController::class);
+
+Route::resource('checklists', ChecklistController::class);
