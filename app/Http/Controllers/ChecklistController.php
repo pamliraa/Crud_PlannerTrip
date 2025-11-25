@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Checklist;
 use App\Models\Destino;
-use Illuminate\Http\Request;
+use App\Http\Requests\ChecklistRequest;
 
 class ChecklistController extends Controller
 {
@@ -20,21 +20,9 @@ class ChecklistController extends Controller
         return view('checklists.create', compact('destinos'));
     }
 
-    public function store(Request $request)
+    public function store(ChecklistRequest $request)
     {
-        $request->validate([
-            'destino_id' => 'required|exists:destinos,id',
-            'titulo' => 'required|string|max:255',
-            'descricao' => 'required|string',
-            'concluido' => 'nullable|boolean',
-        ]);
-
-        Checklist::create([
-            'destino_id' => $request->destino_id,
-            'titulo' => $request->titulo,
-            'descricao' => $request->descricao,
-            'concluido' => $request->concluido ?? 0,
-        ]);
+        Checklist::create($request->validated());
 
         return redirect()
             ->route('checklists.index')
@@ -47,21 +35,9 @@ class ChecklistController extends Controller
         return view('checklists.edit', compact('checklist', 'destinos'));
     }
 
-    public function update(Request $request, Checklist $checklist)
+    public function update(ChecklistRequest $request, Checklist $checklist)
     {
-        $request->validate([
-            'destino_id' => 'required|exists:destinos,id',
-            'titulo' => 'required|string|max:255',
-            'descricao' => 'required|string',
-            'concluido' => 'nullable|boolean',
-        ]);
-
-        $checklist->update([
-            'destino_id' => $request->destino_id,
-            'titulo' => $request->titulo,
-            'descricao' => $request->descricao,
-            'concluido' => $request->concluido ?? 0,
-        ]);
+        $checklist->update($request->validated());
 
         return redirect()
             ->route('checklists.index')

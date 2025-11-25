@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Orcamento;
 use App\Models\Destino;
-use Illuminate\Http\Request;
+use App\Http\Requests\OrcamentoRequest;
 
 class OrcamentoController extends Controller
 {
-   
-     public function index()
+    public function index()
     {
         $orcamentos = Orcamento::all();
-        return view("orcamentos.index" , compact("orcamentos"));
+        return view("orcamentos.index", compact("orcamentos"));
     }
 
     public function create()
@@ -21,35 +20,33 @@ class OrcamentoController extends Controller
         return view('orcamentos.create', compact('destinos'));
     }
 
-    public function store(Request $request)
+    public function store(OrcamentoRequest $request)
     {
-        $request->validate([
-        'titulo' => 'required|string|max:255',
-        'valorEstimado' => 'required|numeric',
-        'valorGasto' => 'required|numeric',
-        'descricao' => 'required|string|max:255',
-        'id_destino' => 'nullable|exists:destinos,id',
-    ]);
+        Orcamento::create($request->validated());
 
-        Orcamento::create($request->all());
-
-        return redirect()->route('orcamentos.index')->with('success', 'Orçamento criada com sucesso!');
+        return redirect()->route('orcamentos.index')
+            ->with('success', 'Orçamento criado com sucesso!');
     }
 
     public function edit(Orcamento $orcamento)
     {
-        return view('orcamentos.edit', compact('orcamento'));
+        $destinos = Destino::all();
+        return view('orcamentos.edit', compact('orcamento', 'destinos'));
     }
 
-    public function update(Request $request, Orcamento $orcamento)
+    public function update(OrcamentoRequest $request, Orcamento $orcamento)
     {
-        $orcamento->update($request->all());
-        return redirect()->route('orcamentos.index')->with('success', 'Orçamento atualizada com sucesso!');
+        $orcamento->update($request->validated());
+
+        return redirect()->route('orcamentos.index')
+            ->with('success', 'Orçamento atualizado com sucesso!');
     }
 
     public function destroy(Orcamento $orcamento)
     {
         $orcamento->delete();
-        return redirect()->route('orcamentos.index')->with('success', 'Orçamento excluída com sucesso!');
+
+        return redirect()->route('orcamentos.index')
+            ->with('success', 'Orçamento excluído com sucesso!');
     }
 }

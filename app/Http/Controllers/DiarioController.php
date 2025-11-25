@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Diario;
 use App\Models\Destino;
-use Illuminate\Http\Request;
+use App\Http\Requests\DiarioRequest;
 
 class DiarioController extends Controller
 {
@@ -20,27 +20,15 @@ class DiarioController extends Controller
         return view('diarios.create', compact('destinos'));
     }
 
-    public function store(Request $request)
+    public function store(DiarioRequest $request)
     {
-        $request->validate([
-            'data' => 'required|date',
-            'descricao' => 'required',
-            'foto' => 'nullable|image',
-            'destino_id' => 'required|exists:destinos,id'
-        ]);
-
-        $fotoPath = null;
+        $data = $request->validated();
 
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('diarios', 'public');
+            $data['foto'] = $request->file('foto')->store('diarios', 'public');
         }
 
-        Diario::create([
-            'data' => $request->data,
-            'descricao' => $request->descricao,
-            'foto' => $fotoPath,
-            'destino_id' => $request->destino_id
-        ]);
+        Diario::create($data);
 
         return redirect()
             ->route('diarios.index')
@@ -53,29 +41,19 @@ class DiarioController extends Controller
         return view('diarios.edit', compact('diario', 'destinos'));
     }
 
-    public function update(Request $request, Diario $diario)
+    public function update(DiarioRequest $request, Diario $diario)
     {
-        $request->validate([
-            'data' => 'required|date',
-            'descricao' => 'required',
-            'foto' => 'nullable|image',
-            'destino_id' => 'required|exists:destinos,id'
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('foto')) {
-
             if ($diario->foto && file_exists('storage/' . $diario->foto)) {
                 unlink('storage/' . $diario->foto);
             }
 
-            $diario->foto = $request->file('foto')->store('diarios', 'public');
+            $data['foto'] = $request->file('foto')->store('diarios', 'public');
         }
 
-        $diario->data = $request->data;
-        $diario->descricao = $request->descricao;
-        $diario->destino_id = $request->destino_id;
-
-        $diario->save();
+        $diario->update($data);
 
         return redirect()
             ->route('diarios.index')

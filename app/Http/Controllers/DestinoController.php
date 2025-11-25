@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destino;
-use Illuminate\Http\Request;
+use App\Http\Requests\DestinoRequest;
 
 class DestinoController extends Controller
 {
@@ -27,13 +27,10 @@ class DestinoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+        
+    public function store(DestinoRequest $request)
     {
-        $request->validate([
-        'name' => 'required|string|max:255',
-        'descricao' => 'required|string|max:255',]);
-
-        Destino::create($request->all());
+        Destino::create($request->validated());
 
         return redirect()->route('destinos.index')->with('success', 'Destino criado com sucesso!');
     }
@@ -53,11 +50,13 @@ class DestinoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Destino $destino)
+        public function update(DestinoRequest $request, Destino $destino)
     {
-        $destino->update($request->all());
+        $destino->update($request->validated());
+
         return redirect()->route('destinos.index')->with('success', 'Destino atualizado com sucesso!');
     }
+
 
     public function destroy(Destino $destino)
     {
