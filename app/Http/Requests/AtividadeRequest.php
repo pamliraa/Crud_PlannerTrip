@@ -17,7 +17,8 @@ class AtividadeRequest extends FormRequest
             'titulo' => 'required|string|max:255',
             'descricao' => 'required|string|max:500',
             'data' => 'required|date',
-            'local' => 'nullable|string|max:255',
+            'local' => 'string|max:255',
+            'status' => 'string|max:255',
             'id_destino' => 'nullable|exists:destinos,id',
         ];
     }
