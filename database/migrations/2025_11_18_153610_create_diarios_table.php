@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('data');
             $table->text('descricao');
             $table->string('foto')->nullable();
-            $table->foreignId('destino_id')->constrained('destinos')->onDelete('cascade');
+            $table->foreignId('id_destino')->constrained('destinos')->onDelete('cascade');
             $table->timestamps();
         });
     }
