@@ -12,8 +12,8 @@ return new class extends Migration
                 $table->id();
                 $table->string('titulo');
                 $table->text('descricao');
-                $table->boolean('concluido')->default(false);
-                $table->foreignId('destino_id')->constrained('destinos')
+                $table->string('status');
+                $table->foreignId('id_destino')->constrained('destinos')
                 ->onDelete('cascade'); 
                 $table->timestamps();
             });
