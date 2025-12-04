@@ -14,10 +14,10 @@ class DiarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo' => 'required|string|max:255',
-            'texto' => 'required|string',
-            'data' => 'required|date',
-            'id_destino' => 'nullable|exists:destinos,id',
-        ];
+           'id_destino' => 'required|exists:destinos,id',
+            'data'       => 'required|date',
+            'descricao'  => 'required|string',
+            'foto'       => 'nullable|image|max:4096',
+            ];
     }
 }
