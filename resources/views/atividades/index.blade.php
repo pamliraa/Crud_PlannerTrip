@@ -31,44 +31,48 @@
                 </div>
             @else
 
-                <ul class="space-y-4">
-                    @foreach ($atividades as $atividade)
-                        <li class="flex justify-between p-4 rounded-lg shadow"
-                            style="background-color:#ffffff; border:1px solid #bdd1de;">
+                <div class="overflow-auto rounded-lg shadow">
+                    <table class="w-full border rounded-lg" style="border-color:#bdd1de;">
+                        <thead style="background-color:#bdd1de; color:#4180ab;">
+                            <tr>
+                                <th class="p-2 text-left">Título</th>
+                                <th class="p-2 text-left">Descrição</th>
+                                <th class="p-2 text-left">Data</th>
+                                <th class="p-2 text-left">Local</th>
+                                <th class="p-2 text-left">Status</th>
+                                <th class="p-2 text-left">Ações</th>
+                            </tr>
+                        </thead>
 
-                            <div>
-                                <strong class="text-lg" style="color:#4180ab;">{{ $atividade->titulo }}</strong><br>
-                                <small class="text-gray-600">Descrição: {{ $atividade->descricao }}</small><br>
-                                <small class="text-gray-600">Data: {{ $atividade->data }}</small><br>
-                                <small class="text-gray-600">Local: {{ $atividade->local }}</small><br>
-                                <small class="text-gray-600">Status: {{ $atividade->status }}</small>
-                            </div>
+                        <tbody>
+                            @foreach ($atividades as $atividade)
+                                <tr class="border-b" style="border-color:#bdd1de;">
+                                    <td class="p-2">{{ $atividade->titulo }}</td>
+                                    <td class="p-2">{{ $atividade->descricao }}</td>
+                                    <td class="p-2">{{ $atividade->data }}</td>
+                                    <td class="p-2">{{ $atividade->local }}</td>
+                                    <td class="p-2">{{ $atividade->status }}</td>
 
-                            <div class="flex items-center space-x-3">
-                                <a href="{{ route('atividades.edit', $atividade->id) }}"
-                                   class="font-medium"
-                                   style="color:#4180ab;">
-                                    Editar
-                                </a>
+                                    <td class="p-2 flex space-x-3">
+                                        <a href="{{ route('atividades.edit', $atividade->id) }}"
+                                           style="color:#4180ab;">
+                                            Editar
+                                        </a>
 
-                                <form action="{{ route('atividades.destroy', $atividade->id) }}" 
-                                      method="POST"
-                                      onsubmit="return confirm('Tem certeza que quer excluir?')">
-                                    @csrf
-                                    @method('DELETE')
+                                        <form action="{{ route('atividades.destroy', $atividade->id) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Tem certeza que quer excluir?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button style="color:#ab4141;">Excluir</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
 
-                                    <button type="submit"
-                                            class="font-medium"
-                                            style="color:#ab4141;">
-                                        Excluir
-                                    </button>
-                                </form>
-                            </div>
-
-                        </li>
-                    @endforeach
-                </ul>
-
+                    </table>
+                </div>
             @endif
 
         </div>
