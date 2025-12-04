@@ -11,7 +11,7 @@
             </div>
 
             @if (session('success'))
-                <div class="p-3 mb-4 rounded-lg border" 
+                <div class="p-3 mb-4 rounded-lg border"
                      style="background-color:#bdd1de; color:#4180ab; border-color:#8ab3cf;">
                     {{ session('success') }}
                 </div>
@@ -31,38 +31,42 @@
                 </div>
             @else
 
-                <ul class="space-y-4">
-                    @foreach ($destinos as $destino)
-                        <li class="flex justify-between p-4 rounded-lg shadow"
-                            style="background-color:#ffffff; border:1px solid #bdd1de;">
-                            <div>
-                                <strong class="text-lg" style="color:#4180ab;">{{ $destino->name }}</strong><br>
-                                <small class="text-gray-600">Descrição: {{ $destino->descricao }}</small>
-                            </div>
+                <div class="overflow-auto rounded-lg shadow">
+                    <table class="w-full border rounded-lg" style="border-color:#bdd1de;">
+                        <thead style="background-color:#bdd1de; color:#4180ab;">
+                            <tr>
+                                <th class="p-2 text-left">Nome</th>
+                                <th class="p-2 text-left">Descrição</th>
+                                <th class="p-2 text-left">Ações</th>
+                            </tr>
+                        </thead>
 
-                            <div class="flex items-center space-x-3">
-                                <a href="{{ route('destinos.edit', $destino->id) }}"
-                                   class="font-medium"
-                                   style="color:#4180ab;">
-                                    Editar
-                                </a>
+                        <tbody>
+                            @foreach ($destinos as $destino)
+                                <tr class="border-b" style="border-color:#bdd1de;">
+                                    <td class="p-2">{{ $destino->name }}</td>
+                                    <td class="p-2">{{ $destino->descricao }}</td>
 
-                                <form action="{{ route('destinos.destroy', $destino->id) }}" 
-                                      method="POST"
-                                      onsubmit="return confirm('Tem certeza que quer excluir?')">
-                                    @csrf
-                                    @method('DELETE')
+                                    <td class="p-2 flex space-x-3">
+                                        <a href="{{ route('destinos.edit', $destino->id) }}"
+                                           style="color:#4180ab;">
+                                            Editar
+                                        </a>
 
-                                    <button type="submit"
-                                            class="font-medium"
-                                            style="color:#ab4141;">
-                                        Excluir
-                                    </button>
-                                </form>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
+                                        <form action="{{ route('destinos.destroy', $destino->id) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Tem certeza que quer excluir?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button style="color:#ab4141;">Excluir</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
 
             @endif
 
