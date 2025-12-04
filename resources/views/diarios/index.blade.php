@@ -1,59 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diários</title>
-</head>
-<body>
-    <h1>Lista de Diários</h1>
+<x-app-layout>
+    <div class="min-h-screen py-8" style="background-color:#e4ebf0;">
+        <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
 
-    @if(session('success'))
-    <p>{{ session('success') }}</p>
-    @endif
+            <div class="mb-4 flex justify-end">
+                <a href="{{ route('diarios.create') }}"
+                   class="px-4 py-2 rounded-lg text-white"
+                   style="background-color:#4180ab;">
+                    Criar Novo Diário
+                </a>
+            </div>
 
-<a href="{{ route('diarios.create') }}">Criar novo diário</a>
+            @if (session('success'))
+                <div class="p-3 mb-4 rounded-lg border"
+                     style="background-color:#bdd1de; color:#4180ab; border-color:#8ab3cf;">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-<table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-        <tr>
-            <th>Destino</th>
-            <th>Data</th>
-            <th>Foto</th>
-            <th>Descrição</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+            @if (session('error'))
+                <div class="p-3 mb-4 rounded-lg border"
+                     style="background-color:#bdd1de; color:#ab4141; border-color:#cf8a8a;">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-    <tbody>
-        @foreach ($diarios as $diario)
-            <tr>
-                <td>{{ $diario->destino->name ?? 'Destino não encontrado' }}</td>
-                <td>{{ $diario->data }}</td>
+            @if ($diarios->isEmpty())
+                <div class="p-6 rounded-lg shadow text-center"
+                     style="background-color:#ffffff; border:1px solid #bdd1de;">
+                    <h2 class="text-xl font-semibold" style="color:#4180ab;">Nenhum diário cadastrado</h2>
+                </div>
+            @else
 
-                <td>
-                    @if ($diario->foto)
-                        <img src="{{ asset('storage/' . $diario->foto) }}" width="70">
-                    @else
-                        <span>Sem foto</span>
-                    @endif
-                </td>
+                <div class="overflow-auto rounded-lg shadow">
+                    <table class="w-full border rounded-lg" style="border-color:#bdd1de;">
+                        <thead style="background-color:#bdd1de; color:#4180ab;">
+                            <tr>
+                                <th class="p-2 text-left">Foto</th>
+                                <th class="p-2 text-left">Destino</th>
+                                <th class="p-2 text-left">Data</th>
+                                <th class="p-2 text-left">Descrição</th>
+                                <th class="p-2 text-left">Ações</th>
+                            </tr>
+                        </thead>
 
-                <td>{{ $diario->descricao }}</td>
+                        <tbody>
+                            @foreach ($diarios as $diario)
+                                <tr class="border-b" style="border-color:#bdd1de;">
 
-                <td>
-                    <a href="{{ route('diarios.edit', $diario->id) }}">Editar</a>
+                                    <td class="p-2">
+                                        @if ($diario->foto)
+                                            <img src="{{ asset('storage/' . $diario->foto) }}"
+                                                 class="w-16 h-16 object-cover rounded-lg shadow">
+                                        @else
+                                            <span class="text-gray-500">Sem foto</span>
+                                        @endif
+                                    </td>
 
-                    <form action="{{ route('diarios.destroy', $diario->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button onclick="return confirm('Excluir este diário?')">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
+                                    <td class="p-2">
+                                        {{ $diario->destino->name ?? 'Destino desconhecido' }}
+                                    </td>
 
-</body>
-</html>
+                                    <td class="p-2">
+                                        {{ $diario->data }}
+                                    </td>
+
+                                    <td class="p-2">
+                                        {{ $diario->descricao }}
+                                    </td>
+
+                                    <td class="p-2 flex space-x-3">
+                                        <a href="{{ route('diarios.edit', $diario->id) }}"
+                                           style="color:#4180ab;">
+                                            Editar
+                                        </a>
+
+                                        <form action="{{ route('diarios.destroy', $diario->id) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Tem certeza que quer excluir?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button style="color:#ab4141;">Excluir</button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+
+        </div>
+    </div>
+</x-app-layout>
