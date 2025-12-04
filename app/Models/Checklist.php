@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Checklist extends Model
 {
     protected $fillable = [
-        'destino_id',
+        'id_destino',
         'titulo',
         'descricao',
-        'concluido',
+        'status',
     ];
 
     public function destino()
