@@ -14,11 +14,10 @@ class OrcamentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo' => 'required|string|max:255',
             'valorEstimado' => 'required|numeric|min:0',
             'valorGasto' => 'required|numeric|min:0',
-            'descricao' => 'required|string|max:255',
-            'id_destino' => 'nullable|exists:destinos,id',
+            'descricao' => 'string|max:255',
+            'id_destino' => 'exists:destinos,id',
         ];
     }
 }
