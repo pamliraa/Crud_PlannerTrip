@@ -24,6 +24,7 @@
                 <div>
                     <label for="titulo" class="block font-medium" style="color:#4180ab;">Título</label>
                     <input type="text" name="titulo" id="titulo"
+                           placeholder="Ex: Visita ao ponto turístico"
                            value="{{ old('titulo') }}"
                            class="w-full p-2 rounded border"
                            style="border-color:#8ab3cf;" required>
@@ -32,6 +33,7 @@
                 <div>
                     <label for="descricao" class="block font-medium" style="color:#4180ab;">Descrição</label>
                     <input type="text" name="descricao" id="descricao"
+                           placeholder="Detalhes da atividade (ex: trilha leve, ingresso incluso...)"
                            value="{{ old('descricao') }}"
                            class="w-full p-2 rounded border"
                            style="border-color:#8ab3cf;" required>
@@ -48,6 +50,7 @@
                 <div>
                     <label for="local" class="block font-medium" style="color:#4180ab;">Local</label>
                     <input type="text" name="local" id="local"
+                           placeholder="Ex: Centro histórico, Praia X, Museu Y..."
                            value="{{ old('local') }}"
                            class="w-full p-2 rounded border"
                            style="border-color:#8ab3cf;" required>
