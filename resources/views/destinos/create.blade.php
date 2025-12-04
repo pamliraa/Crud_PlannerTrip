@@ -55,20 +55,21 @@
                     >
                 </div>
 
-                <button type="submit"
-                    class="px-4 py-2 text-white rounded"
-                    style="background-color:#4180ab;">
-                    Salvar
-                </button>
-            </form>
+                <div class="flex justify-between items-center pt-2">
+                    <a href="{{ route('destinos.index') }}"
+                       class="font-medium"
+                       style="color:#4180ab;">
+                        Voltar
+                    </a>
 
-            <div class="mt-4 text-right">
-                <a href="{{ route('destinos.index') }}"
-                   class="font-medium"
-                   style="color:#4180ab;">
-                    Voltar para lista
-                </a>
-            </div>
+                    <button type="submit"
+                        class="px-4 py-2 text-white rounded"
+                        style="background-color:#4180ab;">
+                        Salvar
+                    </button>
+                </div>
+
+            </form>
 
         </div>
     </div>

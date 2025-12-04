@@ -9,7 +9,7 @@
 
             @if ($errors->any())
                 <div class="p-3 mb-4 rounded-lg border"
-                    style="background-color:#f8d7da; color:#721c24; border-color:#f5c6cb;">
+                     style="background-color:#f8d7da; color:#721c24; border-color:#f5c6cb;">
                     <ul class="list-disc pl-4">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -54,20 +54,21 @@
                     >
                 </div>
 
-                <button type="submit"
-                    class="px-4 py-2 text-white rounded"
-                    style="background-color:#4180ab;">
-                    Atualizar
-                </button>
-            </form>
+                <div class="flex justify-between items-center pt-2">
+                    <a href="{{ route('destinos.index') }}"
+                       class="font-medium"
+                       style="color:#4180ab;">
+                        Voltar
+                    </a>
 
-            <div class="mt-4 text-right">
-                <a href="{{ route('destinos.index') }}"
-                   class="font-medium"
-                   style="color:#4180ab;">
-                    Voltar para lista
-                </a>
-            </div>
+                    <button type="submit"
+                        class="px-4 py-2 text-white rounded"
+                        style="background-color:#4180ab;">
+                        Atualizar
+                    </button>
+                </div>
+
+            </form>
 
         </div>
     </div>
