@@ -10,11 +10,12 @@ class Diario extends Model
         'data',
         'descricao',
         'foto',
-        'destino_id'
+        'id_destino'
     ];
 
-    public function destino()
+        public function destino()
     {
-        return $this->belongsTo(Destino::class);
+        return $this->belongsTo(Destino::class, 'id_destino');
     }
+
 }
