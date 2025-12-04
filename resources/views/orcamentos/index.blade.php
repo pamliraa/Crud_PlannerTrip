@@ -1,53 +1,78 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Orçamentos</title>
-</head>
-<body>
+<x-app-layout>
+    <div class="min-h-screen py-8" style="background-color:#e4ebf0;">
+        <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
 
-    <div>
-        <a href="{{ route('orcamentos.create') }}">Cadastrar Orçamento</a>
+            <div class="mb-4 flex justify-end">
+                <a href="{{ route('orcamentos.create') }}"
+                   class="px-4 py-2 rounded-lg text-white"
+                   style="background-color:#4180ab;">
+                    Cadastrar Novo Orçamento
+                </a>
+            </div>
+
+            @if (session('success'))
+                <div class="p-3 mb-4 rounded-lg border"
+                     style="background-color:#bdd1de; color:#4180ab; border-color:#8ab3cf;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="p-3 mb-4 rounded-lg border"
+                     style="background-color:#bdd1de; color:#ab4141; border-color:#cf8a8a;">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if ($orcamentos->isEmpty())
+                <div class="p-6 rounded-lg shadow text-center"
+                     style="background-color:#ffffff; border:1px solid #bdd1de;">
+                    <h2 class="text-xl font-semibold" style="color:#4180ab;">Nenhum orçamento cadastrado</h2>
+                </div>
+            @else
+
+                <div class="overflow-auto rounded-lg shadow">
+                    <table class="w-full border rounded-lg" style="border-color:#bdd1de;">
+                        <thead style="background-color:#bdd1de; color:#4180ab;">
+                            <tr>
+                                <th class="p-2 text-left">Destino</th>
+                                <th class="p-2 text-left">Estimado</th>
+                                <th class="p-2 text-left">Gasto</th>
+                                <th class="p-2 text-left">Descrição</th>
+                                <th class="p-2 text-left">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($orcamentos as $orcamento)
+                                <tr class="border-b" style="border-color:#bdd1de;">
+                                    <td class="p-2">{{ $orcamento->destino->name ?? 'Destino não encontrado' }}</td>
+                                    <td class="p-2">R$ {{ $orcamento->valorEstimado }}</td>
+                                    <td class="p-2">R$ {{ $orcamento->valorGasto }}</td>
+                                    <td class="p-2">{{ $orcamento->descricao }}</td>
+
+                                    <td class="p-2 flex space-x-3">
+                                        <a href="{{ route('orcamentos.edit', $orcamento->id) }}"
+                                           style="color:#4180ab;">
+                                            Editar
+                                        </a>
+
+                                        <form action="{{ route('orcamentos.destroy', $orcamento->id) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Tem certeza que quer excluir?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button style="color:#ab4141;">Excluir</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
+            @endif
+
+        </div>
     </div>
-
-    <h1>Orçamentos</h1>
-
-    {{-- Mensagens de retorno --}}
-    @if (session('success'))
-        <div>
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div>
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <ul>
-        @foreach($orcamentos as $orcamento)
-        <li>
-            <div>
-                <strong>Destino: {{ $orcamento->destino->name ?? 'Destino não encontrado' }}</strong><br>
-                <small>Valor Estimado: R$ {{ $orcamento->valorEstimado}}</small>
-                <small>Valor Gasto: R$ {{ $orcamento->valorGasto }}</small>
-                <small>Descrição: {{ $orcamento->descricao }}</small>
-            </div>
-
-            <div>
-                <a href="{{ route('orcamentos.edit', $orcamento->id) }}">Editar</a>
-
-                <form action="{{ route('orcamentos.destroy', $orcamento->id) }}" method="post" style="display:inline">
-                    @method('delete')
-                    @csrf
-                    <input type="submit" value="Excluir" onclick="return confirm('Tem certeza que quer excluir?')">
-                </form>
-            </div>
-        </li>
-        @endforeach
-    </ul>
-
-</body>
-</html>
+</x-app-layout>
