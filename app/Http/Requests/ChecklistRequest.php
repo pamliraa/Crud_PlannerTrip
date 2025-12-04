@@ -12,11 +12,12 @@ class ChecklistRequest extends FormRequest
     }
 
     public function rules()
-    {
-        return [
-            'item' => 'required|string|max:255',
-            'feito' => 'nullable|boolean',
-            'id_destino' => 'nullable|exists:destinos,id',
-        ];
+            {
+            return [
+            'id_destino' => 'required|exists:destinos,id',
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'concluido' => 'required|boolean',
+            ];
     }
 }
