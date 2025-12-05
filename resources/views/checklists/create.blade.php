@@ -23,7 +23,7 @@
 
                 <div>
                     <label class="block font-medium" style="color:#4180ab;">Destino</label>
-                    <select name="destino_id"
+                    <select name="id_destino"
                             class="w-full p-2 rounded border"
                             style="border-color:#8ab3cf;" required>
                         <option value="">Selecione um destino</option>
@@ -52,7 +52,7 @@
 
                 <div>
                     <label class="block font-medium" style="color:#4180ab;">Status</label>
-                    <select name="concluido"
+                    <select name="status"
                             class="w-full p-2 rounded border"
                             style="border-color:#8ab3cf;">
                         <option>Pendente</option>

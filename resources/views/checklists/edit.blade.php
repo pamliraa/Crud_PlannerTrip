@@ -24,7 +24,7 @@
 
                 <div>
                     <label class="block font-medium" style="color:#4180ab;">Destino</label>
-                    <select name="destino_id"
+                    <select name="id_destino"
                             class="w-full p-2 rounded border"
                             style="border-color:#8ab3cf;" required>
                         @foreach ($destinos as $destino)
@@ -53,11 +53,11 @@
 
                 <div>
                     <label class="block font-medium" style="color:#4180ab;">Status</label>
-                    <select name="concluido"
+                    <select name="status"
                             class="w-full p-2 rounded border"
                             style="border-color:#8ab3cf;">
-                        <option value="0" {{ !$checklist->concluido ? 'selected' : '' }}>Pendente</option>
-                        <option value="1" {{ $checklist->concluido ? 'selected' : '' }}>Concluído</option>
+                        <option {{ !$checklist->status ? 'selected' : '' }}>Pendente</option>
+                        <option {{ $checklist->status ? 'selected' : '' }}>Concluído</option>
                     </select>
                 </div>
 
