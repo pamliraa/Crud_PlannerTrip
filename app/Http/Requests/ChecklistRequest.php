@@ -17,7 +17,7 @@ class ChecklistRequest extends FormRequest
             'id_destino' => 'required|exists:destinos,id',
             'titulo' => 'required|string|max:255',
             'descricao' => 'required|string',
-            'concluido' => 'required|boolean',
+            'status' => 'required|string',
             ];
     }
 }
